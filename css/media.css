@@ -1,0 +1,66 @@
+@media (min-width: 1200px) {
+	.content-main {max-width: 1225px;}
+}
+@media (max-width: 1199px) {
+	h1 {font-size: 48px;}
+	.content-gl:after {width: 657px; height: 550px; background-size: contain;}
+	.block-list-ico .title {line-height: 1.6;}
+	.menu_mob {display: block;}
+	.open_menu {width: 32px; height: 32px; background: url('../images/menu.svg') center/contain no-repeat;}
+	.head .menu {display: none;}
+	.head .menu.active {
+		position: absolute;
+	    left: 0;
+	    top: 110px;
+	    padding: 25px;
+	    background-color: #262626;
+	    display: flex;
+	    border-radius: 10px;
+	    flex-direction: column;
+	    align-items: flex-start;
+	    background-image: none;
+	    width: 100%;
+	    max-width: 280px;
+	    z-index: 10;
+	}
+	.head .menu a {color: #fff;}
+	.head .menu a:after, .head .menu a:not(.active):hover:after, .head .menu a:not(.active):focus:after {background-color: #fff;}
+	.head .menu li {width: auto; padding: 0; margin-bottom: 10px;}
+	.head .menu li:last-child {margin-bottom: 0;}
+	.head .menu li:after {display: none;}
+	.menu_mob, .head .login {width: 30%;}
+	.head .login {text-align: right;}
+	.head .logo {padding: 0; flex-grow: 1; text-align: center;}
+	header .logo img:last-child {margin: auto;}
+	.table.users tr:not(.header) td {font-size: 16px;}
+
+}
+@media (max-width: 991px) {
+	.drop-section .drop-text {display: none;}
+	.content-gl:after {display: none;}
+	.list-ico .item {width: 100%;}
+	.plash {margin-bottom: 30px;}
+	footer .copy {padding-top: 20px;}
+	.content-gl p {width: 100%;}
+	.list-video .link a {max-width: 100%;word-wrap: break-word;    overflow-wrap: break-word;}
+}
+@media (max-width: 767px) {
+	footer .menu {flex-direction: column; align-items: flex-start;}
+	.table-response {width: 100%; overflow-x: auto;}
+}
+
+@media (max-width: 575px) {
+	.search-f button {padding: 0 10px;}
+	.search-title .text {margin: 0; font-size: 10px;}
+	/* .row {width: 100%;} */
+	button.link {padding-left: 15px; padding-right: 15px;}
+	.block-login {width: 336px;}
+	h1 {font-size: 34px;}
+	h2 {font-size: 24px;}
+	.list-ico .item {flex-direction: column; padding-right: 0;}
+	.list-ico .item p {width: 100%;}
+	.row {margin-right: calc(var(--bs-gutter-x) * -.5);
+  margin-left: calc(var(--bs-gutter-x) * -.5);}
+  .row > * {padding-right: calc(var(--bs-gutter-x) * .5);
+  padding-left: calc(var(--bs-gutter-x) * .5);}
+}

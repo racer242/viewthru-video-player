@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Video player</title>
+
+    <style media="screen">
+
+      #video-player {
+        background-color:black;
+      }
+
+    </style>
+
+    <script>
+
+      function initPlayer(params) {
+        var videoPlayer = document.getElementById('video-player');
+
+        var videoInitialized=false;
+
+        videoPlayer.addEventListener('canplaythrough', function (e) {
+          console.log(e);
+
+          if (!videoInitialized) {
+            videoPlayer.currentTime=params.periods[params.startFrom][0];
+            videoPlayer.play();
+            videoInitialized=true;
+          }
+
+        }, false);
+
+        videoPlayer.addEventListener('play', function (e) {
+          console.log(e);
+        }, false);
+
+        videoPlayer.addEventListener('ended', function (e) {
+          console.log(e);
+        }, false);
+
+        videoPlayer.addEventListener('loadeddata', function (e) {
+          console.log(e);
+        }, false);
+
+        videoPlayer.addEventListener('seeked', function (e) {
+          console.log(e);
+        }, false);
+
+        videoPlayer.addEventListener('timeupdate', function (e) {
+          console.log(e);
+        }, false);
+
+      }
+
+    </script>
+
+  </head>
+
+  <body>
+
+    <video id="video-player" width="960" height="540" controls>
+      <source src="video_720p.mp4" type="video/mp4">
+    </video>
+
+    <script>
+      initPlayer({
+        startFrom:1,
+        periods:[
+          [10,15],
+          [20,30],
+          [40,50],
+        ]
+      });
+    </script>
+
+  </body>
+</html>
