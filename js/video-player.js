@@ -32,6 +32,8 @@ function initPlayer(params) {
   var periodsDisplay = document.querySelector(params.elements.periodsDisplay);
 
   periodsDisplay.innerHTML = "";
+  timer.innerHTML = "00:00/00:00";
+  track.style.width="0%";
 
   videoPlayer.src = params.src;
   videoPlayer.preload = true;
@@ -48,7 +50,6 @@ function initPlayer(params) {
       videoPlayer.addEventListener("play", updateIcon);
       videoPlayer.addEventListener("pause", updateIcon);
       videoPlayer.addEventListener("timeupdate", setSliderAndTimer);
-      videoPlayer.currentTime=params.periods[params.first][0];
       videoPlayer.play();
       videoInitialized=true;
 
@@ -57,57 +58,60 @@ function initPlayer(params) {
       var positions=[];
       var level=0;
 
-      for (var i = 0; i < params.periods.length; i++) {
-        var pBegin = params.periods[i][0];
-        var pEnd = params.periods[i][1];
-        var period = document.createElement('div');
-        period.className = 'period';
-        period.style.left=pBegin*100/videoPlayer.duration+"%";
-        period.style.width=(pEnd-pBegin)*100/videoPlayer.duration+"%";
-        periodsDisplay.appendChild(period);
-        var periodRight = document.createElement('div');
-        periodRight.className = 'period-right';
-        period.appendChild(periodRight);
-        var periodLeft = document.createElement('div');
-        periodLeft.className = 'period-left';
-        period.appendChild(periodLeft);
-        var periodTitle = document.createElement('div');
-        periodTitle.className = 'period-bubble';
-        periodTitle.dataset.begin = pBegin;
-        periodTitle.dataset.index = i;
-        periodTitle.innerHTML = formatTime(pBegin)+" - "+formatTime(pEnd);
-        periodTitle.addEventListener("click", function (e) {
-          videoPlayer.currentTime=e.currentTarget.dataset.begin;
-          videoPlayer.play();
-          params.first=e.currentTarget.dataset.index;
-          firstPeriod=true;
-          e.preventDefault();
-          e.stopPropagation();
-        });
-        period.appendChild(periodTitle);
+      if ((params.periods)&&(params.periods[params.first])) {
+        videoPlayer.currentTime=params.periods[params.first][0];
+        for (var i = 0; i < params.periods.length; i++) {
+          var pBegin = params.periods[i][0];
+          var pEnd = params.periods[i][1];
+          var period = document.createElement('div');
+          period.className = 'period';
+          period.style.left=pBegin*100/videoPlayer.duration+"%";
+          period.style.width=(pEnd-pBegin)*100/videoPlayer.duration+"%";
+          periodsDisplay.appendChild(period);
+          var periodRight = document.createElement('div');
+          periodRight.className = 'period-right';
+          period.appendChild(periodRight);
+          var periodLeft = document.createElement('div');
+          periodLeft.className = 'period-left';
+          period.appendChild(periodLeft);
+          var periodTitle = document.createElement('div');
+          periodTitle.className = 'period-bubble';
+          periodTitle.dataset.begin = pBegin;
+          periodTitle.dataset.index = i;
+          periodTitle.innerHTML = formatTime(pBegin)+" - "+formatTime(pEnd);
+          periodTitle.addEventListener("click", function (e) {
+            videoPlayer.currentTime=e.currentTarget.dataset.begin;
+            videoPlayer.play();
+            params.first=e.currentTarget.dataset.index;
+            firstPeriod=true;
+            e.preventDefault();
+            e.stopPropagation();
+          });
+          period.appendChild(periodTitle);
 
-        var position=periodTitle.getBoundingClientRect();
+          var position=periodTitle.getBoundingClientRect();
 
-        if (positions.length>0) {
-          var lastPosition=positions[positions.length-1];
-          if ((lastPosition.x+lastPosition.width)>position.x) {
-            if ((level>0)&&(positions.length>1)) {
-              var lastLastPosition=positions[positions.length-2];
-              if ((lastLastPosition.x+lastLastPosition.width)>position.x) {
-                level++;
+          if (positions.length>0) {
+            var lastPosition=positions[positions.length-1];
+            if ((lastPosition.x+lastPosition.width)>position.x) {
+              if ((level>0)&&(positions.length>1)) {
+                var lastLastPosition=positions[positions.length-2];
+                if ((lastLastPosition.x+lastLastPosition.width)>position.x) {
+                  level++;
+                } else {
+                  level=0;
+                }
               } else {
-                level=0;
+                level++;
               }
             } else {
-              level++;
-            }
-          } else {
-            level=0;
+              level=0;
 
+            }
           }
+          periodTitle.style.top = 36+level*20+"px";
+          positions.push(position);
         }
-        periodTitle.style.top = 36+level*20+"px";
-        positions.push(position);
       }
     }
   }
@@ -163,7 +167,7 @@ function initPlayer(params) {
     var position = (videoPlayer.currentTime / videoPlayer.duration) * 100;
     track.style.width=position+"%";
 
-    if ((firstPeriod)&&(videoPlayer.currentTime >= params.periods[params.first][1])) {
+    if ((firstPeriod)&&(params.periods)&&(params.periods[params.first])&&(videoPlayer.currentTime >= params.periods[params.first][1])) {
       videoPlayer.currentTime = params.periods[params.first][1];
       videoPlayer.pause();
       firstPeriod=false;
