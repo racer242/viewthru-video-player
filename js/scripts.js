@@ -6,7 +6,7 @@ $(function() {
 			$('.login > .link').text('Login')
 			$('.block-login > form').hide()
 			$('.block-login > form.form-login').show()
-	
+
 	})
 	$('header .login > .link').click(function() {
 		$('header .login').toggleClass('active')
@@ -61,6 +61,7 @@ $(function() {
             // imgs_count.html(part_slide.toString() + "/" + imgs.length.toString());
             // setting first img for display
             $(this).attr("data-first", part_slide);
+						$(this).parent().attr("data-first", part_slide-1);
         }
     }
     if($('.video_pop').length || $('.pop_open').length) {

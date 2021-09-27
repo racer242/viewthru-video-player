@@ -114,11 +114,14 @@
                 </div>
               </a>
               <div class="link">
-                <a href="#video" class="line video_pop" data-fancybox="video"  data-periods="[]" data-first="1" data-videosrc="video1_720p.mp4">ad_eos_saepe_lucilius.mp4</a>
+                <a href="#video" class="line video_pop" data-fancybox="video" data-videosrc="video1_720p.mp4">ad_eos_saepe_lucilius.mp4</a>
               </div>
             </div>
             <div class="col-lg-4 col-md-6 items">
-              <a href="#video" data-fancybox class="video_pop"  data-periods="[[1,2],[4,6],[15,16]]" data-first="2" data-videosrc="video2_720p.mp4">
+
+
+              <!-- <a href="#video" data-fancybox class="video_pop" data-periods="[[1,2],[4,6],[15,16]]" data-first="3" data-videosrc="video2_720p.mp4"> -->
+              <a href="#video" data-fancybox class="video_pop" data-periods="[[1,2],[4,6],[15,16]]" data-first="2" data-videosrc="video2_720p.mp4">
                 <div class="carousel" data-multiple="1" data-ride="carousel" data-interval="false" data-first="0">
                   <div class="item">
                     <ol class="dots carousel-indicators">
@@ -141,7 +144,7 @@
                 </div>
               </a>
               <div class="link">
-                <a href="#video" class="line video_pop" data-fancybox data-periods="[[1,2],[4,6],[15,16]]" data-first="2" data-videosrc="video2_720p.mp4">ad_eos_saepe_lucilius.mp4</a>
+                <a href="#video" class="line video_pop" data-fancybox data-periods="[[0.000000,8.100000],[8.100001,14.233333],[14.233334,14.733333]]" data-first="0" data-videosrc="video2_720p.mp4">ad_eos_saepe_lucilius.mp4</a>
               </div>
             </div>
             <div class="col-lg-4 col-md-6 items">
@@ -313,7 +316,7 @@
         $(".video_pop").on("click",function (e) {
           initPlayer({
             src:$(e.currentTarget).data("videosrc"),
-            first:$(e.currentTarget).data("first"),
+            first:$(e.currentTarget).attr("data-first"),
             periods:$(e.currentTarget).data("periods"),
             elements: {
               videoPlayer:'#video-player',
